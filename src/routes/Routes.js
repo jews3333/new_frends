@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Main, About, Notice, Chat, SignIn, SignUp } from './index';
+import { Main, About, Notice, Chat, SignIn, SignUp, SignOut } from './index';
 
 function Routes(){
     return (
@@ -13,6 +13,7 @@ function Routes(){
                 <Route path="/chat" component={Chat}/>
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/signup" component={SignUp}/>
+                <Route path="/signout" component={SignOut}/>
                 <Redirect path="*" to="/" />
             </Switch>
         </Router>
