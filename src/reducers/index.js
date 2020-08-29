@@ -1,8 +1,10 @@
 import sign from './sign';
+import notice from './notice';
 import { combineReducers } from 'redux';
 
 const reducer = combineReducers({
-    sign
+    sign,
+    notice
 });
 
 export default reducer;

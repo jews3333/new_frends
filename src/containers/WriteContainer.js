@@ -1,18 +1,16 @@
 import { connect } from 'react-redux';
 import Write from '../components/notice/Write';
 import { db } from '../firebase/init';
-import * as actions from '../actions';
+
+const mapStateToProps = (state) => ({
+    user: state.sign.user
+});
 
 const mapDispatchToProps = (dispatch) => ({
     onWrite: (title, content) => WriteHandler(title, content, dispatch)
 });
 
 const WriteHandler = (title, content) => {
-
-    let date = new Date();
-    let yyyy = date.getFullYear();
-    let mm = date.getMonth() + 1;
-    let dd = date.getDate();
 
     db().collection("NOTICE").add({
         title: title,
@@ -24,6 +22,7 @@ const WriteHandler = (title, content) => {
 }
 
 const WriteContainer = connect(
+    mapStateToProps,
     mapDispatchToProps
 )(Write);
 

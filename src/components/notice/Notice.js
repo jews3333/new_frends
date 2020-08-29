@@ -4,18 +4,27 @@ class Notice extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            title: "",
-            content: "",
-        }
+    }
+
+
+    componentDidMount(){
+        this.props.onNoticeList();
     }
 
     render(){
 
-        const { onWrite } = this.props;
+        const { notice } = this.props;
 
         return (
-            <div>공지사항</div>
+            <div>공지사항
+                <div>
+                    {notice ?
+                        Object.keys(notice).map((key, index) => 
+                            <div key={index}>{notice[key].title}</div>
+                        )
+                    : null}
+                </div>
+            </div>
         )
     }
 }

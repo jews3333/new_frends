@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Routes from './routes/Routes';
 
-function App() {
-  return (
-    <Routes/>
-  );
+class App extends Component {
+
+  constructor(props){
+    super(props);
+  }
+  
+  componentDidMount(){
+    this.props.onSignState();
+  }
+
+  render(){
+    return (
+      <Routes/>
+    )
+  }
 }
 
 export default App;

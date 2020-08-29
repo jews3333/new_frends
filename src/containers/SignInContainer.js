@@ -16,11 +16,6 @@ const SignInHandler = (id, pw, dispatch) => {
 
     auth().signInWithEmailAndPassword(id, pw).then((res) => {
 
-        dispatch(actions.signin({
-            id: res.user.email,
-            uid: res.user.uid
-        }));
-
         db().collection('USER').get().then((snapshot) => {
             snapshot.forEach((doc) => {
                 if(doc.data().uid === res.user.uid) {
