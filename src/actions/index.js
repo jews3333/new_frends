@@ -4,3 +4,7 @@ import { createAction } from 'redux-actions';
 export const signin = createAction(types.SIGN_IN);
 export const signout = createAction(types.SIGN_OUT);
 export const signup = createAction(types.SIGN_UP);
+
+export const noticeInsert = createAction(types.NOTICE_INSERT);
+export const noticeUpdate = createAction(types.NOTICE_UPDATE);
+export const noticeDelete = createAction(types.NOTICE_DELETE);

@@ -18,7 +18,7 @@ class SignIn extends Component {
 
     render(){
 
-        const { onSignIn } = this.props;
+        const { onSignIn, user } = this.props;
 
         const { id, pw } = this.state;
 
@@ -28,6 +28,13 @@ class SignIn extends Component {
                 <input type="text" name="id" onChange={(e) => this.onChange(e)}/>
                 <input type="password" name="pw" onChange={(e) => this.onChange(e)}/>
                 <button onClick={() => onSignIn(id, pw)}>SignIn</button>
+                {user ? 
+                    <div>
+                        <p>{user.id}</p>
+                        <p>{user.name}</p>
+                        <p>{user.uid}</p>
+                    </div>
+                : null}
             </div>
         )
     }

@@ -21,7 +21,7 @@ const SignInHandler = (id, pw, dispatch) => {
             uid: res.user.uid
         }));
 
-        db.collection('USER').get().then((snapshot) => {
+        db().collection('USER').get().then((snapshot) => {
             snapshot.forEach((doc) => {
                 if(doc.data().uid === res.user.uid) {
                     dispatch(actions.signin({

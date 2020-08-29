@@ -19,13 +19,13 @@ const SignUpContainer = connect(
 const SignUpHandler = (id, pw, name, code, dispatch) => {
 
     if(code){
-        db.collection("USER").doc(code).get().then((snapshot) => {
+        db().collection("USER").doc(code).get().then((snapshot) => {
 
             if(snapshot.data() !== undefined){
                 if (Object.keys(snapshot.data()).length === 0){
 
                     auth().createUserWithEmailAndPassword(id, pw).then((res) => {
-                        db.collection("USER").doc(code).set({
+                        db().collection("USER").doc(code).set({
                             id: id,
                             uid: res.user.uid,
                             name: name
