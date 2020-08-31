@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Notice extends Component {
 
@@ -15,12 +16,14 @@ class Notice extends Component {
 
         const { notice } = this.props;
 
+        console.log(this.props);
+
         return (
             <div>공지사항
                 <div>
                     {notice ?
                         Object.keys(notice).map((key, index) => 
-                            <div key={index}>{notice[key].title}</div>
+                            <Link to={`/notice/${key}`} key={index}>{notice[key].title}</Link>
                         )
                     : null}
                 </div>

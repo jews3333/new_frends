@@ -2,16 +2,23 @@ import * as types from '../actions/ActionTypes';
 import { handleActions } from 'redux-actions';
 
 const initialState = {
-    list: []
+    list: null
 }
 
 const notice = handleActions({
     [types.NOTICE_LIST]: (state, action) => {
         return {
-            list: [
+            list: {
                 ...state.list,
-                action.payload
-            ]
+                [action.payload.id] : action.payload.data()
+            }
+        }
+    },
+    [types.NOTICE_VIEW]: (state, action) => {
+        return {
+            list: {
+                [action.payload.id] : action.payload.data()
+            }
         }
     },
     [types.NOTICE_INSERT]: (state, action) => {

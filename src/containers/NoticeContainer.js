@@ -15,9 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 const NoticeListHandler = (dispatch) => {
     db().collection("NOTICE").get().then((snapshot) => {
         snapshot.forEach((doc) => {
-            dispatch(actions.noticeList(
-                doc.data()
-            ));
+            dispatch(actions.noticeList(doc));
         })
     })
 }

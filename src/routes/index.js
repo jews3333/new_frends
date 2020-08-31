@@ -8,3 +8,4 @@ export { default as SignOut } from '../containers/SignOutContainer';
 
 export { default as Notice } from '../containers/NoticeContainer';
 export { default as Write } from '../containers/WriteContainer';
+export { default as View } from '../containers/ViewContainer';
