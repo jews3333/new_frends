@@ -7,12 +7,13 @@ class Write extends Component {
 
         this.state = {
             title: "",
-            content: ""
+            content: "",
+            id: this.props.match.params.id
         }
     }
 
     componentDidMount(){
-        //this.props.onWriteView(this.props.match.params.id);
+        //this.props.onWriteView(this.state.id);
 
         //console.log(this.props);
 
@@ -20,23 +21,17 @@ class Write extends Component {
             //     title: this.props.notice[id].title,
             //     content: this.props.notice[id].content
             // })
-
-        this.props.onWriteView(this.props.match.params.id);
+        if(this.state.id) {
+            this.props.onWriteView(this.state.id);
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps){
-        // if(nextProps.notice) {
-        //     this.setState({
-        //         title: this.props.notice[this.props.match.params.id].title,
-        //         content: this.props.notice[this.props.match.params.id].content
-        //     });
-        // }
-
-        if(this.props !== nextProps){
+        if(nextProps.notice){
             this.setState({
-                title: this.props.notice[this.props.match.params.id].title,
-                content: this.props.notice[this.props.match.params.id].content
-            });
+                title: nextProps.notice[this.state.id].title,
+                content: nextProps.notice[this.state.id].content
+            })
         }
     }
 
@@ -50,16 +45,14 @@ class Write extends Component {
 
         const { onWrite } = this.props;
 
-        const { title, content } = this.state;
-
-        console.log(this.state)
+        const { title, content, id } = this.state;
 
         return (
             <div>글쓰기
             <div>
-                <input type="text" name="title" value={this.props.notice ? this.props.notice[this.props.match.params.id].title : title} onChange={(e) => this.onChange(e)}/>
-                <textarea name="content" value={this.props.notice ? this.props.notice[this.props.match.params.id].content : content} onChange={(e) => this.onChange(e)}></textarea>
-                <button onClick={() => onWrite(title, content)}>작성완료</button>
+                <input type="text" name="title" value={title} onChange={(e) => this.onChange(e)}/>
+                <textarea name="content" value={content} onChange={(e) => this.onChange(e)}></textarea>
+                <button onClick={() => onWrite(title, content, id)}>작성완료</button>
             </div>
         </div>
         )

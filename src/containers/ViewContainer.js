@@ -4,7 +4,7 @@ import * as actions from '../actions';
 import View from '../components/notice/View';
 
 const mapStateToProps = (state) => ({
-    notice: state.notice.list
+    notice: state.notice.view
 });
 
 const mapDispatchToProps = (dispatch) => ({

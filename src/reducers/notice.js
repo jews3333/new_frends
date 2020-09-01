@@ -2,7 +2,8 @@ import * as types from '../actions/ActionTypes';
 import { handleActions } from 'redux-actions';
 
 const initialState = {
-    list: null
+    list: null,
+    view: null
 }
 
 const notice = handleActions({
@@ -16,7 +17,7 @@ const notice = handleActions({
     },
     [types.NOTICE_VIEW]: (state, action) => {
         return {
-            list: {
+            view: {
                 [action.payload.id] : action.payload.data()
             }
         }

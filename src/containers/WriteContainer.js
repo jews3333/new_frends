@@ -5,22 +5,22 @@ import * as actions from '../actions';
 
 const mapStateToProps = (state) => ({
     user: state.sign.user,
-    notice: state.notice.list
+    notice: state.notice.view
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onWrite: (title, content) => WriteHandler(title, content, dispatch),
+    onWrite: (title, content, id) => WriteHandler(title, content, id, dispatch),
     onWriteView: (id) => WirteViewHandler(id, dispatch)
 });
 
 const WriteHandler = (title, content, id) => {
 
     if(id) {
-        db().collection("NOTICE").doc(id).set({
+        db().collection("NOTICE").doc(id).update({
             title: title,
             content: content
-        }).then((res) => {
-            alert(res.id + " 수정되었습니다.");
+        }).then(() => {
+            alert("수정되었습니다.");
         });
     } else {
         db().collection("NOTICE").add({
@@ -28,7 +28,7 @@ const WriteHandler = (title, content, id) => {
             content: content,
             date: db.Timestamp.fromDate(new Date())
         }).then((res) => {
-            alert(res.id + " 등록되었습니다.");
+            alert("등록되었습니다.");
         });
     }
 }
