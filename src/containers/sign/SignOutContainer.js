@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import SignOut from '../components/SignOut';
-import { auth } from '../firebase/init';
+import SignOut from '../../components/sign/SignOut';
+import { auth } from '../../firebase/init';
 
 const mapDispatchToProps = (dispatch) => ({
     onSignOut: () => SignOutHandler(dispatch)

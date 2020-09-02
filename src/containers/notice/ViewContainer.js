@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { db } from '../firebase/init';
-import * as actions from '../actions';
-import View from '../components/notice/View';
+import { db } from '../../firebase/init';
+import * as actions from '../../actions';
+import View from '../../components/notice/View';
 
 const mapStateToProps = (state) => ({
     notice: state.notice.view
