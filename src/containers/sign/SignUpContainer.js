@@ -18,42 +18,50 @@ const SignUpContainer = connect(
 
 const SignUpHandler = (id, pw, name, code, dispatch) => {
 
-    if(code){
-        db().collection("USER").doc(code).get().then((snapshot) => {
+    if(id && pw && name && code){
+        db().collection("USER").where("name","==",name).get().then((users) => {
+            if(users.size === 0){
+                db().collection("USER").doc(code).get().then((snapshot) => {
+                    if(snapshot.data() !== undefined){
+                        if (Object.keys(snapshot.data()).length === 0){
+        
+                            auth().createUserWithEmailAndPassword(id, pw).then((res) => {
+                                db().collection("USER").doc(code).set({
+                                    id: id,
+                                    uid: res.user.uid,
+                                    name: name,
+                                    class: "Frend"
+                                });
 
-            if(snapshot.data() !== undefined){
-                if (Object.keys(snapshot.data()).length === 0){
-
-                    auth().createUserWithEmailAndPassword(id, pw).then((res) => {
-                        db().collection("USER").doc(code).set({
-                            id: id,
-                            uid: res.user.uid,
-                            name: name
-                        });
-
-                        
-                        dispatch(actions.signup({
-                            id: res.user.email,
-                            uid: res.user.uid,
-                            name: name
-                        }));
-                    }).catch((error) => {
-                        alert(error.message);
-                    });
-
-
-                } else {
-                    alert("이미 가입된 정보가 있습니다.");
-                }
+                                dispatch(actions.signup({
+                                    id: res.user.email,
+                                    uid: res.user.uid,
+                                    name: name,
+                                    class: "Frend"
+                                }));
+                            }).catch((error) => {
+                                alert(error.message);
+                            });
+        
+        
+                        } else {
+                            alert("이미 가입된 정보가 있습니다.");
+                        }
+                    } else {
+                        alert("존재하지 않는 코드입니다.");
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error)
+                })
             } else {
-                alert("존재하지 않는 코드입니다.");
+                alert("닉네임 중복입니다.");
             }
-            
-        }).catch((error) => {
-            console.log(error)
-        })
+        });
+
+       
     } else {
-        alert("CODE를 입력하세요");
+        alert("입력칸을 모두 채워주세요.");
     }
 }
 

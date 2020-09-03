@@ -33,6 +33,7 @@ class SignIn extends Component {
                         <p>{user.id}</p>
                         <p>{user.name}</p>
                         <p>{user.uid}</p>
+                        <p>{user.class}</p>
                     </div>
                 : null}
             </div>

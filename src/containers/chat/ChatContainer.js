@@ -11,13 +11,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     onChatList: () => ChatListHandler(dispatch),
     onChatWrite: (content, uid) => ChatWriteHandler(content, uid, dispatch),
+    onChatDelete: (chatId, uid) => ChatDeleteHandler(chatId, uid, dispatch),
     onReplyWrite: (chatId, content, uid) => ReplyWriteHandler(chatId, content, uid, dispatch),
-    onReplyDelete: (chatId, replyId, uid) => ReplyDeleteHandler(chatId, replyId, uid, dispatch),
+    onReplyDelete: (chatId, replyId, uid) => ReplyDeleteHandler(chatId, replyId, uid, dispatch)
 });
 
 const ChatListHandler = (dispatch) => {
-    let data = {};
-    db().collection("CHAT").get().then((snapshot) => {
+    let data = null;
+    db().collection("CHAT").orderBy("date","desc").get().then((snapshot) => {
         snapshot.forEach(async (doc) => {
             //dispatch(actions.chatList(doc));
             // const id = doc.id;
@@ -30,13 +31,27 @@ const ChatListHandler = (dispatch) => {
                 ...data,
                 [doc.id] : {
                     content : doc.data().content,
-                    writer: doc.data().uid,
+                    writer: doc.data().writer,
                     date: doc.data().date,
                     reply: null          
                 }
             }
 
-            await db().collection("CHAT").doc(doc.id).collection('REPLY').get().then((res) => {
+
+
+            await db().collection("USER").where("uid", "==", doc.data().writer).get().then((users) => {
+                users.forEach((user) => {
+                    data = {
+                        ...data,
+                        [doc.id] : {
+                            ...data[doc.id],
+                            name: user.data().name
+                        }
+                    }
+                })
+            });
+
+            await db().collection("CHAT").doc(doc.id).collection('REPLY').orderBy("date","desc").get().then((res) => {
                 res.forEach((reply) => {
                     data = {
                         ...data,
@@ -53,34 +68,53 @@ const ChatListHandler = (dispatch) => {
 
             dispatch(actions.chatList(data));
         });
+    }).catch((err) => {
+        console.log(err);
     });
 }
 
-const ChatWriteHandler = (content, uid) => {
+const ChatWriteHandler = (content, uid, dispatch) => {
     db().collection("CHAT").add({
         content: content,
         writer: uid,
         date: db.Timestamp.fromDate(new Date())
     }).then(() => {
         alert("등록되었습니다.");
+        ChatListHandler(dispatch);
     });
 }
 
-const ReplyWriteHandler = (chatId, content, uid) => {
+const ChatDeleteHandler = (chatId, uid, dispatch) => {
+    db().collection("CHAT").doc(chatId).get().then((doc) => {
+        if(doc.data().writer === uid){
+            db().collection("CHAT").doc(chatId).delete().then(() => {
+                alert("삭제되었습니다.");
+                ChatListHandler(dispatch);
+            });
+        } else {
+            alert("작성자 본인이 아닙니다.");
+        }
+    })
+}
+
+const ReplyWriteHandler = (chatId, content, uid, dispatch) => {
     db().collection("CHAT").doc(chatId).collection("REPLY").add({
         content: content,
         writer: uid,
         date: db.Timestamp.fromDate(new Date())
     }).then(() => {
         alert("등록되었습니다.");
+        ChatListHandler(dispatch);
     });
 }
 
-const ReplyDeleteHandler = (chatId, replyId, uid) => {
+const ReplyDeleteHandler = (chatId, replyId, uid, dispatch) => {
     db().collection("CHAT").doc(chatId).collection("REPLY").doc(replyId).get().then((doc) => {
-        if(doc.writer === uid){
+        console.log(doc.data().write, uid)
+        if(doc.data().writer === uid){
             db().collection("CHAT").doc(chatId).collection("REPLY").doc(replyId).delete().then(() => {
-                alert("삭제되었습니다..");
+                alert("삭제되었습니다.");
+                ChatListHandler(dispatch);
             });
         } else {
             alert("작성자 본인이 아닙니다.");

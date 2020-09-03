@@ -15,7 +15,7 @@ class Chat extends Component {
 
     render(){
 
-        const { onChatWrite, onReplyWrite, chat, user } = this.props;
+        const { onChatWrite, onChatDelete, onReplyWrite, onReplyDelete, chat, user } = this.props;
 
         return (
             <div>채팅
@@ -23,8 +23,8 @@ class Chat extends Component {
                     {chat ?
                         Object.keys(chat).map((key, index) => 
                             <div key={index}>
-                                <p>{chat[key].content}</p>
-                                <Reply chatId={key} reply={chat[key].reply} onReplyWrite={onReplyWrite} uid={user ? user.uid : null} />
+                                <p>{chat[key].content} <button onClick={() => onChatDelete(key, user.uid)}>삭제</button></p>
+                                <Reply chatId={key} reply={chat[key].reply} onWrite={onReplyWrite} onDelete={onReplyDelete} uid={user ? user.uid : null} />
                             </div>
                         )
                     : null}

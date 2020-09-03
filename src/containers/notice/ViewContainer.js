@@ -8,12 +8,19 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onNoticeView: (id) => NoticeViewHandler(id, dispatch)
+    onNoticeView: (id) => NoticeViewHandler(id, dispatch),
+    onNoticeDelete: (id) => NoticeDeleteHandler(id, dispatch)
 });
 
 const NoticeViewHandler = (id, dispatch) => {
     db().collection("NOTICE").doc(id).get().then((doc) => {
         dispatch(actions.noticeView(doc));
+    })
+}
+
+const NoticeDeleteHandler = (id, dispatch) => {
+    db().collection("NOTICE").doc(id).delete().then(() => {
+        alert("삭제되었습니다.");
     })
 }
 

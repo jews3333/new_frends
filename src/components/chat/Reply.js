@@ -17,7 +17,7 @@ class Reply extends Component {
     }
     
     render(){
-        const { onReplyWrite, uid, reply, chatId } = this.props;
+        const { onWrite, onDelete, uid, reply, chatId } = this.props;
 
         const { content } = this.state;
 
@@ -27,14 +27,14 @@ class Reply extends Component {
                     {reply ?
                         Object.keys(reply).map((key, index) => 
                             <div key={index}>
-                                <p>{reply[key].content}</p>
+                                <p>{reply[key].content} <button onClick={() => onDelete(chatId, key, uid)}>삭제</button></p>
                             </div>
                         )
                     : null}
                 </div>
                 <div>
                     <textarea name="content" onChange={(e) => this.onChange(e)}></textarea>
-                    <button onClick={() => onReplyWrite(chatId, content, uid )}>리플달기</button>
+                    <button onClick={() => onWrite(chatId, content, uid )}>리플달기</button>
                 </div>
             </div>
         )

@@ -16,8 +16,6 @@ class Notice extends Component {
 
         const { notice } = this.props;
 
-        console.log(this.props);
-
         return (
             <div>공지사항
                 <div>

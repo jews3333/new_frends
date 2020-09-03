@@ -13,7 +13,7 @@ class View extends Component {
 
     render(){
 
-        const { notice } = this.props;
+        const { notice, onNoticeDelete } = this.props;
 
         return (
             <div>공지사항 뷰페이지
@@ -24,6 +24,7 @@ class View extends Component {
                         <p>{notice[key].content}</p>
                         <p>{new Date(notice[key].date.seconds).toString()}</p>
                         <Link to={`/notice/form/${key}`}>수정하기</Link>
+                        <button onClick={() => onNoticeDelete(key)}>삭제하기</button>
                     </div>
                 )
                 : null}

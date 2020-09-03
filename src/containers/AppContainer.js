@@ -21,7 +21,8 @@ const SignStateHandler = (dispatch) => {
                         dispatch(actions.signin({
                             id: doc.data().id,
                             uid: doc.data().uid,
-                            name: doc.data().name
+                            name: doc.data().name,
+                            class: doc.data().class
                         }));
                     }
                 });
