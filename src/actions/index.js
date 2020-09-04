@@ -19,3 +19,5 @@ export const chatUpdate = createAction(types.CHAT_UPDATE);
 export const chatDelete = createAction(types.CHAT_DELETE);
 
 export const replyList = createAction(types.REPLY_LIST);
+
+export const memberList = createAction(types.MEMBER_LIST);

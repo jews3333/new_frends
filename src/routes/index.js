@@ -10,3 +10,5 @@ export { default as Write } from '../containers/notice/WriteContainer';
 export { default as View } from '../containers/notice/ViewContainer';
 
 export { default as Chat } from '../containers/chat/ChatContainer';
+
+export { default as Member } from '../containers/member/MemberContainer';

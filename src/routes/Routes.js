@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Main, About, Notice, Write, View, Chat, SignIn, SignUp, SignOut } from './index';
+import { Main, About, Notice, Write, View, Chat, SignIn, SignUp, SignOut, Member } from './index';
 import Nav from '../components/Nav';
 
 function Routes(){
@@ -19,6 +19,7 @@ function Routes(){
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/signout" component={SignOut}/>
+                <Route path="/member" component={Member}/>
                 <Redirect path="*" to="/" />
             </Switch>
         </Router>

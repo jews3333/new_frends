@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FormatDate } from '../../modules/common';
 
 class View extends Component {
 
@@ -22,7 +23,7 @@ class View extends Component {
                     <div key={index}>
                         <p>{notice[key].title}</p>
                         <p>{notice[key].content}</p>
-                        <p>{new Date(notice[key].date.seconds).toString()}</p>
+                        <p>{FormatDate(notice[key].date.seconds)}</p>
                         <Link to={`/notice/form/${key}`}>수정하기</Link>
                         <button onClick={() => onNoticeDelete(key)}>삭제하기</button>
                     </div>

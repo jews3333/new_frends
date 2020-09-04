@@ -21,6 +21,10 @@ const WriteHandler = (title, content, id) => {
             content: content
         }).then(() => {
             alert("수정되었습니다.");
+        }).catch((err) => {
+            if(err.code === 'permission-denied'){
+                alert('관리자만 수정이 가능합니다.');
+            }
         });
     } else {
         db().collection("NOTICE").add({
@@ -29,7 +33,11 @@ const WriteHandler = (title, content, id) => {
             date: db.Timestamp.fromDate(new Date())
         }).then((res) => {
             alert("등록되었습니다.");
-        });
+        }).catch((err) => {
+            if(err.code === 'permission-denied'){
+                alert('관리자만 작성이 가능합니다.');
+            }
+        });;
     }
 }
 

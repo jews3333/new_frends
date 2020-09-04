@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FormatDate } from '../../modules/common';
 
 class Notice extends Component {
 
@@ -21,7 +22,7 @@ class Notice extends Component {
                 <div>
                     {notice ?
                         Object.keys(notice).map((key, index) => 
-                            <Link to={`/notice/${key}`} key={index}>{notice[key].title}</Link>
+                            <Link to={`/notice/${key}`} key={index}>{notice[key].title} {FormatDate(notice[key].date.seconds)}</Link>
                         )
                     : null}
                 </div>

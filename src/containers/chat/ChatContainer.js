@@ -19,55 +19,52 @@ const mapDispatchToProps = (dispatch) => ({
 const ChatListHandler = (dispatch) => {
     let data = null;
     db().collection("CHAT").orderBy("date","desc").get().then((snapshot) => {
-        snapshot.forEach(async (doc) => {
-            //dispatch(actions.chatList(doc));
-            // const id = doc.id;
-            // db().collection("CHAT").doc(id).collection('REPLY').get().then((res) => {
-            //     res.forEach((reply) => {
-            //        dispatch(actions.replyList({id, reply}))
-            //     });
-            // })
-            data = {
-                ...data,
-                [doc.id] : {
-                    content : doc.data().content,
-                    writer: doc.data().writer,
-                    date: doc.data().date,
-                    reply: null          
-                }
-            }
-
-
-
-            await db().collection("USER").where("uid", "==", doc.data().writer).get().then((users) => {
-                users.forEach((user) => {
-                    data = {
-                        ...data,
-                        [doc.id] : {
-                            ...data[doc.id],
-                            name: user.data().name
-                        }
+        if(snapshot.size > 0){
+            snapshot.forEach(async (doc) => {
+                data = {
+                    ...data,
+                    [doc.id] : {
+                        content : doc.data().content,
+                        writer: doc.data().writer,
+                        date: doc.data().date,
+                        reply: null          
                     }
-                })
-            });
-
-            await db().collection("CHAT").doc(doc.id).collection('REPLY').orderBy("date","desc").get().then((res) => {
-                res.forEach((reply) => {
-                    data = {
-                        ...data,
-                        [doc.id] : {
-                            ...data[doc.id],
-                            reply: {
-                                ...data[doc.id].reply,
-                                [reply.id] : reply.data()
+                }
+    
+    
+    
+                await db().collection("USER").where("uid", "==", doc.data().writer).get().then((users) => {
+                    users.forEach((user) => {
+                        data = {
+                            ...data,
+                            [doc.id] : {
+                                ...data[doc.id],
+                                name: user.data().name
                             }
                         }
-                    }
+                    })
                 });
+    
+                await db().collection("CHAT").doc(doc.id).collection('REPLY').orderBy("date","desc").get().then((res) => {
+                    res.forEach((reply) => {
+                        data = {
+                            ...data,
+                            [doc.id] : {
+                                ...data[doc.id],
+                                reply: {
+                                    ...data[doc.id].reply,
+                                    [reply.id] : reply.data()
+                                }
+                            }
+                        }
+                    });
+                });
+    
+                dispatch(actions.chatList(data));
             });
-
+        } else {
             dispatch(actions.chatList(data));
-        });
+        }
     }).catch((err) => {
         console.log(err);
     });
@@ -94,7 +91,7 @@ const ChatDeleteHandler = (chatId, uid, dispatch) => {
         } else {
             alert("작성자 본인이 아닙니다.");
         }
-    })
+    });
 }
 
 const ReplyWriteHandler = (chatId, content, uid, dispatch) => {
