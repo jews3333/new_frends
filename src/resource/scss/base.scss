@@ -44,3 +44,18 @@ textarea {
     resize: none;
     overflow: auto;
 }
+
+img {
+    max-width: 100%;
+    vertical-align: top;
+}
+
+ul,
+li,
+ol {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+}

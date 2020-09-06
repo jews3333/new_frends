@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 class Write extends Component {
 
@@ -23,14 +24,35 @@ class Write extends Component {
         const { content } = this.state;
 
         return (
-            <div>채팅 글쓰기
-                <div>
-                    <textarea name="content" onChange={(e) => this.onChange(e)}></textarea>
-                    <button onClick={() => onChatWrite(content, uid)}>작성하기</button>
-                </div>
-            </div>
+            <Form>
+                <TextArea name="content" onChange={(e) => this.onChange(e)}></TextArea>
+                <Submit onClick={() => onChatWrite(content, uid)}>작성하기</Submit>
+            </Form>
         )
     }
 }
+
+const Form = styled.div`
+    position:absolute;
+    bottom:1em;
+    left:1em;
+    right:1em;
+`;
+
+const TextArea = styled.textarea`
+    width:100%;
+    height:6em;
+    vertical-align:top;
+`;
+
+const Submit = styled.button`
+    background:#2e3192;
+    width:100%;
+    vertical-align:top;
+    height:2em;
+    line-height:2em;
+    font-size:1.4em;
+    color:#fcbd11;
+`;
 
 export default Write;
