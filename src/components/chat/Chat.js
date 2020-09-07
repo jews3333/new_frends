@@ -21,17 +21,19 @@ class Chat extends Component {
         return (
             <Content>
                 <Title>채팅</Title>
-                <div>
-                    {chat ?
-                        Object.keys(chat).map((key, index) => 
-                            <div key={index}>
-                                <p>{chat[key].content} <button onClick={() => onChatDelete(key, user.uid)}>삭제</button></p>
-                                <Reply chatId={key} reply={chat[key].reply} onWrite={onReplyWrite} onDelete={onReplyDelete} uid={user ? user.uid : null} />
-                            </div>
-                        )
-                    : null}
-                    <Write onChatWrite={onChatWrite} uid={user ? user.uid : null} />
-                </div>
+                {chat ?
+                    Object.keys(chat).map((key, index) => 
+                        <Item key={index}>
+                            <Info>
+                                <Name><Class class={chat[key].class}>{chat[key].class}</Class>{chat[key].name}</Name>
+                                <Delete onClick={() => onChatDelete(key, user.uid)}><span>삭제</span></Delete>
+                            </Info>
+                            <Text>{chat[key].content}</Text>
+                            <Reply chatId={key} reply={chat[key].reply} onWrite={onReplyWrite} onDelete={onReplyDelete} uid={user ? user.uid : null} />
+                        </Item>
+                    )
+                : null}
+                <Write onChatWrite={onChatWrite} uid={user ? user.uid : null} />
             </Content>
         )
     }
@@ -60,6 +62,93 @@ const Title = styled.h3`
         height:1px;
         background:#222;
         margin:1em auto 0;
+    }
+`;
+
+const Item = styled.div`
+
+`;
+
+const Info = styled.div`
+    border-bottom:1px solid #ccc;
+    padding: 0.5em;
+
+    &:after {
+        content:"";
+        display:block;
+        clear:both;
+    }
+`;
+
+const Name = styled.div`
+    height:2em;
+    float:left;
+    vertical-align: middle;
+    font-size:1.1em;
+
+    & > span {
+        vertical-align: middle;
+    }
+`;
+
+const Class = styled.span`
+    display:inline-block;
+    position:relative;
+    vertical-align:middle;
+    width:2em;
+    height:2em;
+    text-indent:-9999px;
+    overflow:hidden;
+    margin-right:0.5em;
+    border-radius:50%;
+    background: ${props => props.class == "Master" ? "#dd4f43" : props.class == "Step" ? "#149f5b" : "#ffce44"};
+
+    &:after {
+        content: "${props => props.class == "Master" ? "M" : props.class == "Step" ? "S" : "F"}";
+        display:block;
+        color:#fff;
+        position:absolute;
+        top:50%;
+        left:0;
+        right:0;
+        text-align:center;
+        transform:translateY(-50%);
+        text-indent:0;
+    }
+`;
+
+const Text = styled.p`
+    word-break:breal-word;
+    padding:0.5em;
+    min-height:4em;
+`;
+
+const Delete = styled.button`
+    display:block;
+    color:#2e3192;
+    font-size:1em;
+    height:2em;
+    width:4em;
+    line-height:2em;
+    position:relative;
+    float:right;
+    margin-right:0.5em;
+    text-align: center;
+
+    &:before {
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        background:#fcbd11;
+        transform: skewX(-15deg);
+    }
+
+    & > span {
+        position:relative;
     }
 `;
 

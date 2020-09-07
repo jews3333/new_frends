@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ChatListHandler = (dispatch) => {
+    let complete = false;
     let data = null;
     db().collection("CHAT").orderBy("date","desc").get().then((snapshot) => {
         if(snapshot.size > 0){
@@ -39,13 +40,15 @@ const ChatListHandler = (dispatch) => {
                             ...data,
                             [doc.id] : {
                                 ...data[doc.id],
-                                name: user.data().name
+                                name: user.data().name,
+                                class: user.data().class
                             }
                         }
                     })
                 });
     
                 await db().collection("CHAT").doc(doc.id).collection('REPLY').orderBy("date","desc").get().then((res) => {
+                    //console.log("1")
                     res.forEach((reply) => {
                         data = {
                             ...data,
@@ -57,10 +60,38 @@ const ChatListHandler = (dispatch) => {
                                 }
                             }
                         }
+
+                        db().collection("USER").where("uid", "==", reply.data().writer).get().then(async (users) => {
+                            //console.log("2")
+                            await users.forEach((user) => {
+                                data = {
+                                    ...data,
+                                    [doc.id] : {
+                                        ...data[doc.id],
+                                        reply: {
+                                            ...data[doc.id].reply,
+                                            [reply.id]: {
+                                                ...data[doc.id].reply[reply.id],
+                                                name: user.data().name,
+                                                class: user.data().class
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+                            complete = true;
+
+                            if(complete){
+                                //console.log("3")
+                                dispatch(actions.chatList(data));
+                            }
+                        });
                     });
                 });
     
-                dispatch(actions.chatList(data));
+                // await console.log("3")
+                // await dispatch(actions.chatList(data));
             });
         } else {
             dispatch(actions.chatList(data));
