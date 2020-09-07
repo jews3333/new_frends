@@ -1,34 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoSrc from '../resource/images/logo.png';
 import SignOut from '../containers/sign/SignOutContainer';
 
-function Nav(props){
+class Nav extends Component {
 
-    return (
-        <Navgator user={props.user}>
-            <Logo to="/" user={props.user}><img src={LogoSrc} alt='뉴프렌즈'/></Logo>
-            {props.user ?
-            <Menu>
-                <Link to="/about" activeClassName="active"><span>클럽소개</span></Link>
-                <Link to="/notice" activeClassName="active"><span>공지사항</span></Link>
-                <Link to="/chat" activeClassName="active"><span>수다수다방</span></Link>
-            </Menu>
-            : null}
-            {!props.user ? <Text>안녕하세요! 클럽 뉴프렌즈입니다! 프렌즈 친구들과 신나는 레이싱을 즐겨볼까요?</Text> : null}
-            
-                {props.user ?
-                    <Util user={props.user}>
-                        <SignOut/>
-                    </Util>
-                : <Util user={props.user}>
-                    <SignIn to="/signin"><span>로그인</span></SignIn>
-                    <SignUp to="/signup"><span>가입하기</span></SignUp>
-                </Util>}
+    constructor(props){
+        super(props);
+        this.state = {
+            nav: 0
+        }
+    }
 
-        </Navgator>
-    )
+    
+    UNSAFE_componentWillReceiveProps(nextProps){
+        if(nextProps.user){
+            this.setState({
+                nav: 1
+            })
+        } else {
+            this.setState({
+                nav: 0
+            })
+        }
+    }
+
+    render(){
+
+        console.log(this.props)
+
+        const { user } = this.props;
+
+        const { nav } = this.state;
+
+        return (
+            <Navgator nav={nav}>
+                <Logo to="/" nav={nav}><img src={LogoSrc} alt='뉴프렌즈'/></Logo>
+                {user ?
+                <Menu>
+                    <Link to="/about" activeClassName="active"><span>클럽소개</span></Link>
+                    <Link to="/notice" activeClassName="active"><span>공지사항</span></Link>
+                    <Link to="/chat" activeClassName="active"><span>수다수다방</span></Link>
+                </Menu>
+                : null}
+                {!nav ? <Text>안녕하세요! 클럽 뉴프렌즈입니다! 프렌즈 친구들과 신나는 레이싱을 즐겨볼까요?</Text> : null}
+                
+                    {nav ?
+                        <Util nav={nav}>
+                            <SignOut/>
+                        </Util>
+                    : <Util nav={nav}>
+                        <SignIn to="/signin"><span>로그인</span></SignIn>
+                        <SignUp to="/signup"><span>가입하기</span></SignUp>
+                    </Util>}
+    
+            </Navgator>
+        )
+    }
 }
 
 const Navgator = styled.div`
@@ -36,10 +65,10 @@ const Navgator = styled.div`
     z-index: 10;
     left:0;
     padding: 1em;
-    top: ${props => props.user ? '0' : 'calc(50% - 2.5em)'};
+    top: ${props => props.nav ? '0' : 'calc(50% - 2.5em)'};
     right:0;
-    ${props => props.user ? null : 'transform:translateY(-50%);'}
-    ${props => props.user ? null : 'text-align: center;'}
+    ${props => props.nav ? null : 'transform:translateY(-50%);'}
+    ${props => props.nav ? null : 'text-align: center;'}
     transition: all 0.5s ease;
 
     &:after {
@@ -50,10 +79,10 @@ const Navgator = styled.div`
 `;
 
 const Logo = styled(NavLink)`
-    ${props => props.user ? 'float: left;' : null}
+    ${props => props.nav ? 'float: left;' : null}
     & > img {
         transition: all 0.5s ease;
-        height: ${props => props.user ? '65px' : '195px'};
+        height: ${props => props.nav ? '65px' : '195px'};
     }
 `;
 
@@ -111,7 +140,7 @@ const Text = styled.p`
 
 const Util = styled.div`
     display:inline-block;
-    ${props => props.user ? 'float:right;' : null}
+    ${props => props.nav ? 'float:right;' : null}
 `;
 
 const SignIn = styled(NavLink)`

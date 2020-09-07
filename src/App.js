@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Routes from './routes/Routes';
-import Footer from './components/Footer';
 import './resource/scss/base.scss';
 import styled from 'styled-components';
 import BackgroundTop from './resource/images/bg_background_top.png';
@@ -20,7 +19,6 @@ class App extends Component {
     return (
       <Common>
         <Routes user={this.props.user}/>
-        <Footer/>
       </Common>
     )
   }
