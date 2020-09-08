@@ -25,18 +25,22 @@ class Reply extends Component {
         return (
             <ReplyWrap>
                 리플
-                {reply ?
-                    Object.keys(reply).map((key, index) => 
-                        <Item key={index}>
-                            <Text>{reply[key].name}</Text>
-                            <p>{reply[key].content} <button onClick={() => onDelete(chatId, key, uid)}>삭제</button></p>
-                        </Item>
-                    )
-                : null}
-                <div>
-                    <TextArea name="content" onChange={(e) => this.onChange(e)}></TextArea>
-                    <button onClick={() => onWrite(chatId, content, uid )}>리플달기</button>
-                </div>
+                <Hidden>
+                    <List>
+                        {reply ?
+                            Object.keys(reply).map((key, index) => 
+                                <Item key={index}>
+                                    <Text>{reply[key].name}</Text>
+                                    <p>{reply[key].content} <button onClick={() => onDelete(chatId, key, uid)}>삭제</button></p>
+                                </Item>
+                            )
+                        : null}
+                    </List>
+                    <Form>
+                        <TextArea name="content" onChange={(e) => this.onChange(e)}></TextArea>
+                        <button onClick={() => onWrite(chatId, content, uid )}>리플달기</button>
+                    </Form>
+                </Hidden>
             </ReplyWrap>
         )
     }
@@ -46,12 +50,24 @@ const ReplyWrap = styled.div`
 
 `;
 
+const Hidden = styled.div`
+    display:none;
+`;
+
+const List = styled.div`
+
+`;
+
 const Item = styled.div`
 
 `;
 
 const Text = styled.p`
     word-break: break-word;
+`;
+
+const Form = styled.div`
+
 `;
 
 const TextArea = styled.textarea`

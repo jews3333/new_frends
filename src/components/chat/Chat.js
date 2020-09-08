@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Write from './Write';
 import Reply from './Reply';
 import styled from 'styled-components';
+import { FormatDate } from '../../modules/common';
 
 class Chat extends Component {
 
@@ -20,12 +21,13 @@ class Chat extends Component {
 
         return (
             <Content>
-                <Title>채팅</Title>
+                <Title>수다수다방</Title>
                 {chat ?
                     Object.keys(chat).map((key, index) => 
                         <Item key={index}>
                             <Info>
-                                <Name><Class class={chat[key].class}>{chat[key].class}</Class>{chat[key].name}</Name>
+                                <Name><Class className={chat[key].class}>{chat[key].class}</Class>{chat[key].name}</Name>
+                                <Date><span>{FormatDate(chat[key].date.seconds)}</span></Date>
                                 <Delete onClick={() => onChatDelete(key, user.uid)}><span>삭제</span></Delete>
                             </Info>
                             <Text>{chat[key].content}</Text>
@@ -66,7 +68,7 @@ const Title = styled.h3`
 `;
 
 const Item = styled.div`
-
+    margin-bottom: 1em;
 `;
 
 const Info = styled.div`
@@ -91,6 +93,19 @@ const Name = styled.div`
     }
 `;
 
+const Date = styled.div`
+    display:table;
+    height:2em;
+    float:left;
+    margin-left:1em;
+    color:#777;
+
+    & > span {
+        display:table-cell;
+        vertical-align: middle;
+    }
+`;
+
 const Class = styled.span`
     display:inline-block;
     position:relative;
@@ -101,10 +116,10 @@ const Class = styled.span`
     overflow:hidden;
     margin-right:0.5em;
     border-radius:50%;
-    background: ${props => props.class == "Master" ? "#dd4f43" : props.class == "Step" ? "#149f5b" : "#ffce44"};
+    background: ${props => props.className == "Master" ? "#dd4f43" : props.className == "Step" ? "#149f5b" : "#ffce44"};
 
     &:after {
-        content: "${props => props.class == "Master" ? "M" : props.class == "Step" ? "S" : "F"}";
+        content: "${props => props.className == "Master" ? "M" : props.className == "Step" ? "S" : "F"}";
         display:block;
         color:#fff;
         position:absolute;
@@ -119,7 +134,7 @@ const Class = styled.span`
 
 const Text = styled.p`
     word-break:breal-word;
-    padding:0.5em;
+    padding:1em;
     min-height:4em;
 `;
 

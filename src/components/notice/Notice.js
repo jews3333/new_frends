@@ -24,8 +24,8 @@ class Notice extends Component {
                 <Lists>
                     {notice ?
                         Object.keys(notice).map((key, index) => 
-                            <List>
-                                <Item to={`/notice/${key}`} key={index}>
+                            <List key={index}>
+                                <Item to={`/notice/${key}`}>
                                     <Tit>{notice[key].title}</Tit>
                                     <Date>{FormatDate(notice[key].date.seconds)}</Date>
                                 </Item>
@@ -94,6 +94,7 @@ const Date = styled.span`
     float:right;
     width:12em;
     text-align:right;
+    color:#777;
 `;
 
 export default Notice;

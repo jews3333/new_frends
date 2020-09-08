@@ -49,45 +49,64 @@ const ChatListHandler = (dispatch) => {
     
                 await db().collection("CHAT").doc(doc.id).collection('REPLY').orderBy("date","desc").get().then((res) => {
                     //console.log("1")
-                    res.forEach((reply) => {
-                        data = {
-                            ...data,
-                            [doc.id] : {
-                                ...data[doc.id],
-                                reply: {
-                                    ...data[doc.id].reply,
-                                    [reply.id] : reply.data()
+
+                    if(res.size){
+                        res.forEach((reply) => {
+
+                            data = {
+                                ...data,
+                                [doc.id] : {
+                                    ...data[doc.id],
+                                    reply: {
+                                        ...data[doc.id].reply,
+                                        [reply.id] : reply.data()
+                                    }
                                 }
                             }
-                        }
+    
+                            db().collection("USER").where("uid", "==", reply.data().writer).get().then(async (users) => {
+                                //console.log("2")
 
-                        db().collection("USER").where("uid", "==", reply.data().writer).get().then(async (users) => {
-                            //console.log("2")
-                            await users.forEach((user) => {
-                                data = {
-                                    ...data,
-                                    [doc.id] : {
-                                        ...data[doc.id],
-                                        reply: {
-                                            ...data[doc.id].reply,
-                                            [reply.id]: {
-                                                ...data[doc.id].reply[reply.id],
-                                                name: user.data().name,
-                                                class: user.data().class
+                                await users.forEach((user) => {
+                                    data = {
+                                        ...data,
+                                        [doc.id] : {
+                                            ...data[doc.id],
+                                            reply: {
+                                                ...data[doc.id].reply,
+                                                [reply.id]: {
+                                                    ...data[doc.id].reply[reply.id],
+                                                    name: user.data().name,
+                                                    class: user.data().class
+                                                }
                                             }
                                         }
                                     }
+                                });
+    
+                                complete = true;
+    
+                                if(complete){
+                                    //console.log("3")
+
+                                    dispatch(actions.chatList(data));
                                 }
+                            }).catch((err) => {
+                                console.log(err)
                             });
-
-                            complete = true;
-
-                            if(complete){
-                                //console.log("3")
-                                dispatch(actions.chatList(data));
-                            }
                         });
-                    });
+
+                    } else { //댓글없어도 디스패치해야지;;
+                        complete = true;
+    
+                        if(complete){
+                            //console.log("3")
+                            dispatch(actions.chatList(data));
+                        }
+                    }
+                    
+                }).catch((err) => {
+                    console.log(err)
                 });
     
                 // await console.log("3")
