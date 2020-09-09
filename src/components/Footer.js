@@ -22,14 +22,24 @@ const Foot = styled.div`
     height:3.5em;
     text-align:center;
     color:#6d8fd9;
-    font-size:1.5rem;
+    font-size:1.4rem;
     padding:1em;
     z-index:10;
+
+    @media (max-width:1024px){
+        font-size:1.2rem;
+        height: 6.5em;
+    }
 `;
 
 const Text = styled.span`
     display:inline-block;
     vertical-align:middle;
+
+    @media (max-width:1024px){
+        display:block;
+        margin-bottom:0.5em;
+    }
 `;
 
 const Button = styled(Link)`

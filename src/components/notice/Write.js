@@ -44,11 +44,12 @@ class Write extends Component {
 
     render(){
 
-        const { onWrite } = this.props;
+        const { onWrite, user } = this.props;
 
         const { title, content, id } = this.state;
 
         return (
+            user.class === "Master" ?
             <Content>
                 <Title>공지사항 작성/수정</Title>
                 <div style={{marginBottom: '0.5em'}}>
@@ -60,6 +61,9 @@ class Write extends Component {
                 <Buttons>
                     <Submit onClick={() => onWrite(title, content, id)}><span>작성완료</span></Submit>
                 </Buttons>
+            </Content>
+            : <Content>
+                <p style={{position:"absolute", top:"50%", left:0, right:0, textAlign:"center", transform:"translateY(-50%)"}}>관리자만 접근이 가능합니다.</p>
             </Content>
         )
     }

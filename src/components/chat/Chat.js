@@ -30,7 +30,10 @@ class Chat extends Component {
                             <Info>
                                 <Name><Class className={chat[key].class}>{chat[key].class}</Class>{chat[key].name}</Name>
                                 <Date><span>{FormatDate(chat[key].date.seconds)}</span></Date>
-                                <Delete onClick={() => onChatDelete(key, user.uid)}><span>삭제</span></Delete>
+                                {chat[key].writer === user.uid ?
+                                    <Delete onClick={() => onChatDelete(key, user.uid)}><span>삭제</span></Delete>
+                                : null}
+                                
                             </Info>
                             <Text>{chat[key].content}</Text>
                             <Reply chatId={key} reply={chat[key].reply} onWrite={onReplyWrite} onDelete={onReplyDelete} uid={user ? user.uid : null} />
@@ -125,10 +128,10 @@ const Class = styled.span`
     overflow:hidden;
     margin-right:0.5em;
     border-radius:50%;
-    background: ${props => props.className == "Master" ? "#dd4f43" : props.className == "Step" ? "#149f5b" : "#ffce44"};
+    background: ${props => props.className === "Master" ? "#dd4f43" : props.className === "Step" ? "#149f5b" : "#ffce44"};
 
     &:after {
-        content: "${props => props.className == "Master" ? "M" : props.className == "Step" ? "S" : "F"}";
+        content: "${props => props.className === "Master" ? "M" : props.className === "Step" ? "S" : "F"}";
         display:block;
         color:#fff;
         position:absolute;

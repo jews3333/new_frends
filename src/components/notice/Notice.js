@@ -16,7 +16,7 @@ class Notice extends Component {
 
     render(){
 
-        const { notice } = this.props;
+        const { notice, user } = this.props;
 
         return (
             <Content>
@@ -37,6 +37,11 @@ class Notice extends Component {
                         )
                     : null}
                 </Lists>
+                {user.class === "Master" ?
+                <Buttons>
+                    <Button to="/notice/form"><span>글쓰기</span></Button>
+                </Buttons>
+                : null}
             </Content>
         )
     }
@@ -49,6 +54,7 @@ const Content = styled.div`
     padding: 1.5em;
     height:100%;
     overflow:auto;
+    position:relative;
 `;
 
 const Title = styled.h3`
@@ -125,6 +131,42 @@ const Date = styled.span`
     text-align:center;
     color:#777;
     padding:0 0.5em;
+`;
+
+const Buttons = styled.div`
+    position:absolute;
+    bottom:1.5em;
+    left:0;
+    right:0;
+    text-align: center;
+`;
+
+const Button = styled(Link)`
+    display:block;
+    color:#2e3192;
+    font-size:1.4em;
+    height:2em;
+    width:8em;
+    line-height:2em;
+    position:relative;
+    text-align: center;
+    margin:0 auto;
+
+    &:before {
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        background:#fcbd11;
+        transform: skewX(-15deg);
+    }
+
+    & > span {
+        position:relative;
+    }
 `;
 
 export default Notice;

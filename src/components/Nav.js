@@ -88,9 +88,14 @@ const Navgator = styled.div`
 
 const Logo = styled(NavLink)`
     ${props => props.nav ? 'float: left;' : null}
+
     & > img {
         transition: all 0.5s ease;
         height: ${props => props.nav ? '65px' : '195px'};
+
+        @media (max-width:1024px){
+            height: ${props => props.nav ? '40px' : '150px'};
+        }
     }
 `;
 
@@ -102,6 +107,10 @@ const Menu = styled.ul`
         content:"";
         display:block;
         clear:both;
+    }
+
+    @media (max-width:1024px){
+        margin-left: 1em;
     }
 `;
 
@@ -138,12 +147,22 @@ const Link = styled(NavLink)`
             background:#2e3192;
         }
     }
+
+    @media (max-width:1024px){
+        padding: 0 0.75em;
+        font-size: 1em;
+    }
 `;
 
 const Text = styled.p`
     color:#fff;
     font-size:1.4em;
     margin:2em 0;
+    line-height:1.2;
+
+    @media (max-width:1024px){
+        font-size: 1em;
+    }
 `;
 
 const Util = styled.div`
@@ -178,6 +197,11 @@ const SignIn = styled(NavLink)`
     & > span {
         position:relative;
     }
+
+    @media (max-width:1024px){
+        width:6em;
+        font-size: 1em;
+    }
 `;
 
 const SignUp = styled(NavLink)`
@@ -205,6 +229,11 @@ const SignUp = styled(NavLink)`
 
     & > span {
         position:relative;
+    }
+
+    @media (max-width:1024px){
+        width:6em;
+        font-size: 1em;
     }
 `;
 

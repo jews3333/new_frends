@@ -15,7 +15,7 @@ class View extends Component {
 
     render(){
 
-        const { notice, onNoticeDelete } = this.props;
+        const { notice, onNoticeDelete, user } = this.props;
 
         return (
             <Fragment>
@@ -24,11 +24,17 @@ class View extends Component {
                     <Content key={index}>
                         <Title>{notice[key].title}</Title>
                         <Date>{FormatDate(notice[key].date.seconds)}</Date>
-                        <Text>{notice[key].content}</Text>
-                        <Buttons>
-                            <Update to={`/notice/form/${key}`}><span>수정</span></Update>
-                            <Delete onClick={() => onNoticeDelete(key)}><span>삭제</span></Delete>
-                        </Buttons>
+                        <Text>
+                            {notice[key].content.split('\n').map((word, idx) => {
+                                return (<span key={idx}>{word}<br/></span>);
+                            })}
+                        </Text>
+                        {user.class === "Master" ?
+                            <Buttons>
+                                <Update to={`/notice/form/${key}`}><span>수정</span></Update>
+                                <Delete onClick={() => onNoticeDelete(key)}><span>삭제</span></Delete>
+                            </Buttons>
+                        : null}
                     </Content>
                 )
                 : null}

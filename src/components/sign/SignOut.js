@@ -37,6 +37,11 @@ const Button = styled.button`
     & > span {
         position:relative;
     }
+
+    @media (max-width:1024px){
+        width:6em;
+        font-size: 1em;
+    }
 `;
 
 export default SignOut;

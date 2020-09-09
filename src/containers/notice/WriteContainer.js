@@ -15,6 +15,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const WriteHandler = (title, content, id) => {
 
+    // content = content.replace(/\n/g,"<br/>");
+
     if(id) {
         db().collection("NOTICE").doc(id).update({
             title: title,

@@ -37,18 +37,17 @@ const Common = styled.div`
     top:0;
     left:0;
     bottom:0;
-    right:0;
-    background: url(${BackgroundTop}) no-repeat left top;
-    // animation: slowMoveLeft 10s infinite linear;
+    background: url(${BackgroundTop}) no-repeat left top / 100%;
+    animation: slowMoveLeft 30s infinite linear;
 
-    // @keyframes slowMoveLeft {
-    //   from {
-    //     left:0;
-    //   }
-    //   to {
-    //     left: -100%;
-    //   }
-    // }
+    @keyframes slowMoveLeft {
+      from {
+        left:0;
+      }
+      to {
+        left: -100%;
+      }
+    }
 
   }
 
@@ -56,11 +55,25 @@ const Common = styled.div`
     content:"";
     display:block;
     position:absolute;
+    width:200%;
     top:0;
-    left:0;
     bottom:0;
     right:0;
-    background: url(${BackgroundBottom}) no-repeat center bottom;
+    background: url(${BackgroundBottom}) no-repeat center bottom calc(1.2rem * 3.5) / 100%;
+    animation: slowMoveRight 30s infinite linear;
+
+    @keyframes slowMoveRight {
+      from {
+        right:0;
+      }
+      to {
+        right: -100%;
+      }
+    }
+
+    @media (max-width:1024px){
+      background: url(${BackgroundBottom}) no-repeat center bottom calc(1.2rem * 6.5) / 100%;
+    }
   }
 `;
 

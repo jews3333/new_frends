@@ -157,7 +157,6 @@ const ReplyWriteHandler = (chatId, content, uid, dispatch) => {
 
 const ReplyDeleteHandler = (chatId, replyId, uid, dispatch) => {
     db().collection("CHAT").doc(chatId).collection("REPLY").doc(replyId).get().then((doc) => {
-        console.log(doc.data().write, uid)
         if(doc.data().writer === uid){
             db().collection("CHAT").doc(chatId).collection("REPLY").doc(replyId).delete().then(() => {
                 alert("삭제되었습니다.");

@@ -84,7 +84,7 @@ const Title = styled.h3`
 
 const Input = styled.input`
     width:100%;
-    border-bottom:0;
+    margin-bottom:0.25em;
     text-align: center;
 `;
 

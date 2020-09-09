@@ -47,7 +47,9 @@ class Reply extends Component {
                                     <Info>
                                         <Name><Class className={reply[key].class}>{reply[key].class}</Class>{reply[key].name}</Name>
                                         <Date><span>{FormatDate(reply[key].date.seconds)}</span></Date>
+                                        {reply[key].writer === uid ?
                                         <Delete onClick={() => onDelete(chatId, key, uid)}><span>삭제</span></Delete>
+                                        : null}
                                     </Info>
                                     <Text>{reply[key].content}</Text>
                                 </Item>

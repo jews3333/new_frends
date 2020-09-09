@@ -31,23 +31,24 @@ class About extends Component {
             this.setState({
                 loaded: 1
             })
-        }, 38000);
+        }, 34000);
     }
 
     render(){
+
         return (
             <Content loaded={this.state.loaded}>
-                <Text delay="2">안녕하세요! 클럽 <span>뉴프렌즈</span>입니다!</Text>
-                <Text delay="5">저희 클럽은 프렌즈의 <span>실력</span>과 <span>피지컬</span>은 중요하게 생각하지 않습니다!</Text>
-                <Text delay="8">그저 즐기면 될 <span>뿐!</span></Text>
-                <Text delay="11">최소한의 인간적인 <span>인성</span>을 갖추고 즐겁게 즐기기만 하면 됩니다!</Text>
-                <Text delay="14">두가지 <span>약속</span>이 있습니다!</Text>
-                <Text delay="17">하나. 절대 남을 비하하거나 <span>욕설</span>을 하는 <span>비인륜적 행동</span>을 하지 않는다.</Text>
-                <Text delay="20">둘. <span>14일</span>간의 <span>미접속</span>은 하지 않는다.</Text>
-                <Text delay="23">간단하죠?</Text>
-                <Text delay="26">아! 그리고 저희 클럽도 <span>시그니처 마크</span>가 있답니다.</Text>
-                <Text delay="29">필수는 아니지만 뉴프렌즈의 <span>정예멤버</span>가 되길 원하시면</Text>
-                <Text delay="32">꼭 닉네임 앞에 <New onClick={(e) => this.onCopy(e)}>ᴺᴱᵂ</New>를 붙혀주세요!</Text>
+                <Text delay="0">안녕하세요! 클럽 <span>뉴프렌즈</span>입니다!</Text>
+                <Text delay="3">저희 클럽은 프렌즈의 <span>실력</span>과 <span>피지컬</span>은 중요하게 생각하지 않습니다!</Text>
+                <Text delay="6">그저 즐기면 될 <span>뿐!</span></Text>
+                <Text delay="9">최소한의 인간적인 <span>인성</span>을 갖추고 즐겁게 즐기기만 하면 됩니다!</Text>
+                <Text delay="12">두가지 <span>약속</span>이 있습니다!</Text>
+                <Text delay="15">하나. 절대 남을 비하하거나 <span>욕설</span>을 하는 <span>비인륜적 행동</span>을 하지 않는다.</Text>
+                <Text delay="18">둘. <span>14일</span>간의 <span>미접속</span>은 하지 않는다.</Text>
+                <Text delay="21">간단하죠?</Text>
+                <Text delay="24">아! 그리고 저희 클럽도 <span>시그니처 마크</span>가 있답니다.</Text>
+                <Text delay="27">필수는 아니지만 뉴프렌즈의 <span>정예멤버</span>가 되길 원한다면</Text>
+                <Text delay="30">꼭 닉네임 앞에 <New onClick={(e) => this.onCopy(e)}>ᴺᴱᵂ</New>를 붙혀주세요!</Text>
                 <Text>
                     <SignUp to="/signup"><span>가입하기</span></SignUp>
                 </Text>
@@ -57,10 +58,17 @@ class About extends Component {
 }
 
 const Content = styled.div`
+
+    height:100%;
+    overflow:auto;
+    padding:0 1em;
+
     & > p {
-        position:${props => props.loaded == 0 ? "absolute" : "relative"};
-        transition: all 3s ease;
+        position:${props => props.loaded ? "relative" : "absolute"};
         opacity: ${props => props.loaded} !important;
+        ${props => props.loaded ? null : "transform:translate(-50%,-50%)"};
+        ${props => props.loaded ? null : "left:50%;"}
+        ${props => props.loaded ? null : "top:50%;"}
     }
 `;
 
@@ -68,15 +76,13 @@ const Text = styled.p`
     font-size: 1.8em;
     color:#fff;
     text-align: center;
-    padding: 0.5em 0;
+    padding: 0.4em 0;
     word-break: break-word;
     position:absolute;
-    width:100%;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+    width:calc(100% - 2em);
     opacity:0;
-    animation: textShow 3s ease forwards;
+    transition: opacity 3s ease;
+    ${props => props.delay ? `animation: textShow 3s ease;` : null} 
     ${props => props.delay ? `animation-delay: ${props.delay}s;` : null} 
 
 
@@ -125,11 +131,11 @@ const New = styled.button`
     position:relative;
 
     &:after {
-        content:"복사하기!";
+        content:"복사하기";
         font-family: 'CookieRun', sans-serif;
         font-weight:normal;
         white-space:nowrap;
-        font-size:0.6em;
+        font-size:0.4em;
         display:inline-block;
         padding: 0.1em 0.25em;
         position:absolute;
