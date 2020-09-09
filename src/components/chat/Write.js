@@ -25,7 +25,7 @@ class Write extends Component {
 
         return (
             <Form>
-                <TextArea name="content" onChange={(e) => this.onChange(e)}></TextArea>
+                <TextArea name="content" onChange={(e) => this.onChange(e)} placeholder="프렌즈와 수다수다 해보세요!"></TextArea>
                 <Submit onClick={() => onChatWrite(content, uid)}>작성하기</Submit>
             </Form>
         )
@@ -34,9 +34,9 @@ class Write extends Component {
 
 const Form = styled.div`
     position:absolute;
-    bottom:1em;
-    left:1em;
-    right:1em;
+    bottom:1.5em;
+    left:1.5em;
+    right:1.5em;
 `;
 
 const TextArea = styled.textarea`

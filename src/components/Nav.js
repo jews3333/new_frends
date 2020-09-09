@@ -26,6 +26,16 @@ class Nav extends Component {
         }
     }
 
+    componentDidMount(){
+        var path = document.location.pathname;
+
+        if(path === "/about"){
+            this.setState({
+                nav: 1
+            });
+        }
+    }
+
     render(){
 
         const { user } = this.props;
@@ -44,7 +54,7 @@ class Nav extends Component {
                 : null}
                 {!nav ? <Text>안녕하세요! 클럽 뉴프렌즈입니다! 프렌즈 친구들과 신나는 레이싱을 즐겨볼까요?</Text> : null}
                 
-                    {nav ?
+                    {user ?
                         <Util nav={nav}>
                             <SignOut/>
                         </Util>

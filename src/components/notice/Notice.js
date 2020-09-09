@@ -22,6 +22,10 @@ class Notice extends Component {
             <Content>
                 <Title>공지사항</Title>
                 <Lists>
+                    <Head>
+                        <div>제목</div>
+                        <div>날짜</div>
+                    </Head>
                     {notice ?
                         Object.keys(notice).map((key, index) => 
                             <List key={index}>
@@ -66,6 +70,30 @@ const Lists = styled.ul`
     
 `;
 
+const Head = styled.li`
+    padding: 1em 0;
+    background:#efefef;
+
+    &:after {
+        content:"";
+        display:block;
+        clear:both;
+    }
+
+    & > div {
+        float:left;
+        text-align:center;
+
+        &:first-child {
+            width:calc(100% - 12em);
+        }
+
+        &:last-child {
+            width:12em;
+        }
+    }
+`;
+
 const List = styled.li`
     border-bottom:1px solid #ccc;
 `;
@@ -87,14 +115,16 @@ const Tit = styled.span`
     overflow:hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+    padding:0 0.5em;
 `;
 
 const Date = styled.span`
     display:block;
     float:right;
     width:12em;
-    text-align:right;
+    text-align:center;
     color:#777;
+    padding:0 0.5em;
 `;
 
 export default Notice;

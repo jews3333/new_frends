@@ -22,6 +22,8 @@ class Chat extends Component {
         return (
             <Content>
                 <Title>수다수다방</Title>
+
+                <ChatWrap>
                 {chat ?
                     Object.keys(chat).map((key, index) => 
                         <Item key={index}>
@@ -35,6 +37,8 @@ class Chat extends Component {
                         </Item>
                     )
                 : null}
+                </ChatWrap>
+
                 <Write onChatWrite={onChatWrite} uid={user ? user.uid : null} />
             </Content>
         )
@@ -45,9 +49,9 @@ const Content = styled.div`
     max-width:1000px;
     margin:0 auto;
     background:#fff;
-    padding: 1.5em 1.5em calc(1.5em + (2em * 1.4) + 1em);
+    padding: 1.5em;
     height:100%;
-    overflow:auto;
+    overflow:hidden;
     position:relative;
 `;
 
@@ -65,6 +69,11 @@ const Title = styled.h3`
         background:#222;
         margin:1em auto 0;
     }
+`;
+
+const ChatWrap = styled.div`
+    height:calc(100% - (1.8em * 1.2 + 3.6em) - (6em + 1.4em * 2));
+    overflow:auto;
 `;
 
 const Item = styled.div`

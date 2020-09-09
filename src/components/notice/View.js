@@ -41,9 +41,8 @@ const Content = styled.div`
     max-width:1000px;
     margin:0 auto;
     background:#fff;
-    padding: 1.5em 1.5em calc(1.5em + (2em * 1.4) + 1em);
+    padding: 1.5em;
     height:100%;
-    overflow:auto;
     position:relative;
 `;
 
@@ -52,6 +51,9 @@ const Title = styled.h3`
     text-align: center;
     margin-bottom:1em;
     line-height:1.2;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 
     &:after {
         content:"";
@@ -72,6 +74,8 @@ const Date = styled.p`
 const Text = styled.div`
     line-height:1.4;
     word-break: break-word;
+    height: calc(100% - (1.8em * 2 + 3.6em + 2em) - (1.4em * 2));
+    overflow:auto;
 `;
 
 const Buttons = styled.div`

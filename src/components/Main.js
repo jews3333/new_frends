@@ -1,10 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function Main(){
 
     return (
-        <div>메인페이지</div>
+        <Content>
+            
+        </Content>
     )
 }
+
+const Content = styled.div`
+
+`;
 
 export default Main;

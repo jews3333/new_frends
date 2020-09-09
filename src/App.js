@@ -14,6 +14,7 @@ class App extends Component {
   }
 
   render(){
+
     return (
       <Common>
         <Routes user={this.props.user}/>
@@ -32,11 +33,23 @@ const Common = styled.div`
     content:"";
     display:block;
     position:absolute;
+    width:200%;
     top:0;
     left:0;
     bottom:0;
     right:0;
-    background: url(${BackgroundTop}) no-repeat center top;
+    background: url(${BackgroundTop}) no-repeat left top;
+    // animation: slowMoveLeft 10s infinite linear;
+
+    // @keyframes slowMoveLeft {
+    //   from {
+    //     left:0;
+    //   }
+    //   to {
+    //     left: -100%;
+    //   }
+    // }
+
   }
 
   &:after {

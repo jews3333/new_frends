@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const NoticeListHandler = (dispatch) => {
-    db().collection("NOTICE").get().then((snapshot) => {
+    db().collection("NOTICE").orderBy("date","desc").get().then((snapshot) => {
         snapshot.forEach((doc) => {
             dispatch(actions.noticeList(doc));
         });

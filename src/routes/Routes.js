@@ -29,6 +29,7 @@ function Routes(props){
                     <Redirect path="*" to="/" />
                 </Switch>
                 : <Switch>
+                    <Route path="/about" component={About}/>
                     <Route path="/private" component={Private}/>
                     <Route path="/signin" component={SignIn}/>
                     <Route path="/signup" component={SignUp}/>
@@ -44,7 +45,7 @@ function Routes(props){
 const Container = styled.div`
     position:relative;
     z-index:10;
-    padding: 120px 1em 6.5em;
+    padding: 120px 1em 7em;
     height:100%;
 `;
 
