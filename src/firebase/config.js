@@ -7,4 +7,4 @@ export default {
     messagingSenderId: "328576699213",
     appId: "1:328576699213:web:c7cacfe666cb08c2834504",
     measurementId: "G-TETBD0X3VT"
-};
+}
