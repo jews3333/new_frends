@@ -26,14 +26,14 @@ function Routes(props){
                     <Route path="/chat" component={Chat}/>
                     <Route path="/signout" component={SignOut}/>
                     <Route path="/member" component={Member}/>
-                    <Redirect path="*" to="/" />
+                    <Redirect to="/" />
                 </Switch>
                 : <Switch>
                     <Route path="/about" component={About}/>
                     <Route path="/private" component={Private}/>
                     <Route path="/signin" component={SignIn}/>
                     <Route path="/signup" component={SignUp}/>
-                    <Redirect path="*" to="/" />
+                    <Redirect to="/" />
                 </Switch>}
                 
             </Container>

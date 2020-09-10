@@ -17,6 +17,11 @@ class Write extends Component {
         });
     }
 
+    chatWrite = (content, uid) => {
+        this.props.onChatWrite(content, uid);
+        document.getElementById("writeForm").value = "";
+    }
+
     render(){
 
         const { onChatWrite, uid } = this.props;
@@ -25,8 +30,8 @@ class Write extends Component {
 
         return (
             <Form>
-                <TextArea name="content" onChange={(e) => this.onChange(e)} placeholder="프렌즈와 수다수다 해보세요!"></TextArea>
-                <Submit onClick={() => onChatWrite(content, uid)}>작성하기</Submit>
+                <TextArea name="content" id="writeForm" onChange={(e) => this.onChange(e)} placeholder="프렌즈와 수다수다 해보세요!"></TextArea>
+                <Submit onClick={() => this.chatWrite(content, uid)}>작성하기</Submit>
             </Form>
         )
     }

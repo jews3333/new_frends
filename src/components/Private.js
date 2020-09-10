@@ -36,12 +36,12 @@ const Layer = styled.div`
     left:0;
     bottom:0;
     right:0;
-    z-index:10;
+    z-index:100;
 `;
 
 const Wrap = styled.div`
     position:absolute;
-    width:100%;
+    width:calc(100% - 3em);
     max-width:1000px;
     top:50%;
     left:50%;

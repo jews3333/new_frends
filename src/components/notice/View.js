@@ -32,7 +32,7 @@ class View extends Component {
                         {user.class === "Master" ?
                             <Buttons>
                                 <Update to={`/notice/form/${key}`}><span>수정</span></Update>
-                                <Delete onClick={() => onNoticeDelete(key)}><span>삭제</span></Delete>
+                                <Delete onClick={() => onNoticeDelete(key)} to="/notice"><span>삭제</span></Delete>
                             </Buttons>
                         : null}
                     </Content>
@@ -121,7 +121,7 @@ const Update = styled(Link)`
     }
 `;
 
-const Delete = styled.button`
+const Delete = styled(Link)`
     display:inline-block;
     vertical-align: middle;
     color:#2e3192;

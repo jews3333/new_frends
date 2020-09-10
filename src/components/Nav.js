@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoSrc from '../resource/images/logo.png';
 import SignOut from '../containers/sign/SignOutContainer';
@@ -9,27 +9,37 @@ class Nav extends Component {
     constructor(props){
         super(props);
         this.state = {
-            nav: 0
+            nav: 0,
+            path: props.location.pathname
         }
     }
 
     
-    UNSAFE_componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps = async (nextProps) => {
+
         if(nextProps.user){
             this.setState({
                 nav: 1
-            })
+            });
         } else {
             this.setState({
                 nav: 0
-            })
+            });
+        }
+
+        await this.setState({
+            path: nextProps.location.pathname
+        });
+
+        if(this.state.path === "/about"){
+            this.setState({
+                nav: 1
+            });
         }
     }
 
     componentDidMount(){
-        var path = document.location.pathname;
-
-        if(path === "/about"){
+        if(this.state.path === "/about"){
             this.setState({
                 nav: 1
             });
@@ -50,6 +60,7 @@ class Nav extends Component {
                     <Link to="/about" activeClassName="active"><span>클럽소개</span></Link>
                     <Link to="/notice" activeClassName="active"><span>공지사항</span></Link>
                     <Link to="/chat" activeClassName="active"><span>수다수다방</span></Link>
+                    <Link to="/member" activeClassName="active"><span>프렌즈</span></Link>
                 </Menu>
                 : null}
                 {!nav ? <Text>안녕하세요! 클럽 뉴프렌즈입니다! 프렌즈 친구들과 신나는 레이싱을 즐겨볼까요?</Text> : null}
@@ -61,6 +72,11 @@ class Nav extends Component {
                     : <Util nav={nav}>
                         <SignIn to="/signin"><span>로그인</span></SignIn>
                         <SignUp to="/signup"><span>가입하기</span></SignUp>
+                        {!nav ?
+                        <Etc>
+                            <About to="/about">클럽소개</About>
+                        </Etc>
+                        : null}
                     </Util>}
     
             </Navgator>
@@ -171,14 +187,13 @@ const Util = styled.div`
 `;
 
 const SignIn = styled(NavLink)`
-    display:block;
+    display:inline-block;
     color:#fcbd11;
     font-size:1.4em;
     height:2em;
     width:8em;
     line-height:2em;
     position:relative;
-    float:left;
     margin-right:0.5em;
     text-align: center;
 
@@ -205,14 +220,13 @@ const SignIn = styled(NavLink)`
 `;
 
 const SignUp = styled(NavLink)`
-    display:block;
+    display:inline-block;
     color:#2e3192;
     font-size:1.4em;
     height:2em;
     width:8em;
     line-height:2em;
     position:relative;
-    float:left;
     text-align: center;
 
     &:before {
@@ -237,4 +251,19 @@ const SignUp = styled(NavLink)`
     }
 `;
 
-export default Nav;
+const Etc = styled.div`
+    margin-top:2em;
+`;
+
+const About = styled(NavLink)`
+    color:#fff;
+    font-size: 1.4em;
+    border-bottom:5px solid #fff;
+
+    @media (max-width:1024px){
+        font-size: 1em;
+        border-bottom:3px solid #fff;
+    }
+`;
+
+export default withRouter(Nav);

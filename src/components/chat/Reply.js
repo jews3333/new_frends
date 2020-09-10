@@ -30,6 +30,11 @@ class Reply extends Component {
             });
         }
     }
+
+    replyWrite = (chatId, content, uid) => {
+        this.props.onWrite(chatId, content, uid);
+        document.getElementById("replyForm").value = "";
+    }
     
     render(){
         const { onWrite, onDelete, uid, reply, chatId } = this.props;
@@ -57,8 +62,8 @@ class Reply extends Component {
                         : null}
                     </List>
                     <Form>
-                        <TextArea name="content" onChange={(e) => this.onChange(e)} placeholder="리플을 달아볼까요?"></TextArea>
-                        <Submit onClick={() => onWrite(chatId, content, uid )}>리플달기</Submit>
+                        <TextArea name="content" id="replyForm" onChange={(e) => this.onChange(e)} placeholder="리플을 달아볼까요?"></TextArea>
+                        <Submit onClick={() => this.replyWrite(chatId, content, uid)}>리플달기</Submit>
                     </Form>
                 </Hidden>
             </ReplyWrap>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 class Write extends Component {
 
@@ -14,14 +15,6 @@ class Write extends Component {
     }
 
     componentDidMount(){
-        //this.props.onWriteView(this.state.id);
-
-        //console.log(this.props);
-
-            // this.setState({
-            //     title: this.props.notice[id].title,
-            //     content: this.props.notice[id].content
-            // })
         if(this.state.id) {
             this.props.onWriteView(this.state.id);
         }
@@ -40,6 +33,10 @@ class Write extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    noticeWrite = (title, content, id) => {
+        this.props.onWrite(title, content, id);
     }
 
     render(){
