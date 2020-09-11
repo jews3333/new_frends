@@ -31,27 +31,32 @@ class About extends Component {
             this.setState({
                 loaded: 1
             })
-        }, 34000);
+        }, 31000);
     }
 
     render(){
 
+        const { user } = this.props;
+
+        const { loaded } = this.state;
+
         return (
-            <Content loaded={this.state.loaded}>
+            <Content loaded={loaded}>
                 <Text delay="0">안녕하세요! 클럽 <span>뉴프렌즈</span>입니다!</Text>
                 <Text delay="3">저희 클럽은 프렌즈의 <span>실력</span>과 <span>피지컬</span>은 중요하게 생각하지 않습니다!</Text>
-                <Text delay="6">그저 즐기면 될 <span>뿐!</span></Text>
-                <Text delay="9">최소한의 인간적인 <span>인성</span>을 갖추고 즐겁게 즐기기만 하면 됩니다!</Text>
-                <Text delay="12">두가지 <span>약속</span>이 있습니다!</Text>
-                <Text delay="15">하나. 절대 남을 비하하거나 <span>욕설</span>을 하는 <span>비인륜적 행동</span>을 하지 않는다.</Text>
-                <Text delay="18">둘. <span>14일</span>간의 <span>미접속</span>은 하지 않는다.</Text>
-                <Text delay="21">간단하죠?</Text>
-                <Text delay="24">아! 그리고 저희 클럽도 <span>시그니처 마크</span>가 있답니다.</Text>
-                <Text delay="27">필수는 아니지만 뉴프렌즈의 <span>정예멤버</span>가 되길 원한다면</Text>
-                <Text delay="30">꼭 닉네임 앞에 <New onClick={(e) => this.onCopy(e)}>ᴺᴱᵂ</New>를 붙혀주세요!</Text>
+                <Text delay="6">최소한의 <span>인성</span>만 갖추고 즐겁게 즐기기만 하면 됩니다!</Text>
+                <Text delay="9">단, 꼭 지켜주어야하는 <span>약속</span>이 있습니다!</Text>
+                <Text delay="12">하나. 남을 <span>비난</span>하고 <span>욕설</span>을 하지않는다.</Text>
+                <Text delay="15">둘. <span>14일</span>간의 <span>미접속</span>은 하지않는다.</Text>
+                <Text delay="18">간단하죠?</Text>
+                <Text delay="21">아! 그리고 저희 클럽도 <span>시그니처 마크</span>가 있답니다.</Text>
+                <Text delay="24">필수는 아니지만 뉴프렌즈의 <span>정예멤버</span>가 되길 원한다면</Text>
+                <Text delay="27">꼭 닉네임 앞에 <New onClick={(e) => this.onCopy(e)}>ᴺᴱᵂ</New>를 붙혀주세요!</Text>
+                {!user ? 
                 <Text>
                     <SignUp to="/signup"><span>가입하기</span></SignUp>
                 </Text>
+                : null}
             </Content>
         )
     }
@@ -64,8 +69,9 @@ const Content = styled.div`
     padding:0 1em;
 
     & > p {
-        position:${props => props.loaded ? "relative" : "absolute"};
+        position: ${props => props.loaded ? "relative" : "absolute"};
         opacity: ${props => props.loaded} !important;
+        width: ${props => props.loaded ? "100%" : "calc(100% - 2em)"};
         ${props => props.loaded ? null : "transform:translate(-50%,-50%)"};
         ${props => props.loaded ? null : "left:50%;"}
         ${props => props.loaded ? null : "top:50%;"}
@@ -77,11 +83,11 @@ const Text = styled.p`
     color:#fff;
     text-align: center;
     padding: 0.4em 0;
-    word-break: break-word;
+    word-break: keep-all;
     position:absolute;
-    width:calc(100% - 2em);
     opacity:0;
     transition: opacity 3s ease;
+    line-height:1.2;
     ${props => props.delay ? `animation: textShow 3s ease;` : null} 
     ${props => props.delay ? `animation-delay: ${props.delay}s;` : null} 
 
@@ -119,6 +125,10 @@ const Text = styled.p`
         100% {
             opacity:1;
         }
+    }
+
+    @media (max-width:1024px){
+        font-size: 1.4em;
     }
 `;
 

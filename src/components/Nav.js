@@ -126,7 +126,14 @@ const Menu = styled.ul`
     }
 
     @media (max-width:1024px){
-        margin-left: 1em;
+        float:none;
+        position:fixed;
+        top:calc(40px + 2em);
+        right:0;
+        left:0;
+        z-index:10;
+        margin-left:0;
+        padding:0 1em;
     }
 `;
 
@@ -165,8 +172,11 @@ const Link = styled(NavLink)`
     }
 
     @media (max-width:1024px){
+        width:25%;
+        text-align: center;
         padding: 0 0.75em;
         font-size: 1em;
+        margin:0.5em auto;
     }
 `;
 
