@@ -31,10 +31,10 @@ const SignUpHandler = (id, pw, confirm, name, code, dispatch) => {
     db().collection("USER").where("name","==",name).get().then((users) => {
         console.log(users);
         if(users.size === 0){
-            db().collection("USER").doc(code).get().then((snapshot) => {
-                console.log(snapshot)
-                if(snapshot.data() !== undefined){
-                    if (Object.keys(snapshot.data()).length === 0){
+            db().collection("CODE").doc("CODE").get().then((snapshot) => {//일괄 코드 방식
+            // db().collection("USER").doc(code).get().then((snapshot) => { //코드 발급 방식
+                if(snapshot.data().code === code){
+                    //if (Object.keys(snapshot.data()).length === 0){
     
                         auth().createUserWithEmailAndPassword(id, pw).then((res) => {
 
@@ -54,19 +54,26 @@ const SignUpHandler = (id, pw, confirm, name, code, dispatch) => {
                                 class: "Frend"
                             }));
                         }).catch((error) => {
-                            alert(error.message);
+                            alert(error.code);
+
+                            switch(error.code){
+                                case "auth/email-already-in-use" : alert("이미 가입된 정보가 있습니다."); break;
+                                case "auth/invalid-email" : alert("이메일 형식이 아닙니다."); break;
+                                case "auth/weak-password" : alert("패스워드가 너무 간단합니다."); break;
+                                default: alert(error.message);
+                            }
                         });
     
     
-                    } else {
-                        alert("이미 가입된 정보가 있습니다.");
-                    }
+                    // } else {
+                    //     alert("이미 가입된 정보가 있습니다.");
+                    // }
                 } else {
-                    alert("존재하지 않는 코드입니다.");
+                    alert("코드가 일치하지 않습니다.");
                 }
                 
             }).catch((error) => {
-                console.log(error)
+                console.log(error.code + " : " + error.message)
             });
             
         } else {
