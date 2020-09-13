@@ -54,8 +54,6 @@ const SignUpHandler = (id, pw, confirm, name, code, dispatch) => {
                                 class: "Frend"
                             }));
                         }).catch((error) => {
-                            alert(error.code);
-
                             switch(error.code){
                                 case "auth/email-already-in-use" : alert("이미 가입된 정보가 있습니다."); break;
                                 case "auth/invalid-email" : alert("이메일 형식이 아닙니다."); break;
