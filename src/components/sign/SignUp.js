@@ -55,7 +55,7 @@ const Layer = styled.div`
 
 const Wrap = styled.div`
     position:absolute;
-    width:100%;
+    width:calc(100% - 3em);
     max-width:600px;
     top:50%;
     left:50%;

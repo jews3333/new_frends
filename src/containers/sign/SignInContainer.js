@@ -31,7 +31,10 @@ const SignInHandler = (id, pw, dispatch) => {
         });
 
     }).catch((error) => {
-        alert(error.message);
+        switch(error.code){
+            case "auth/user-not-found" : alert("가입된 정보가 없습니다."); break;
+            case "auth/invalid-email" : alert("이메일 형식이 아닙니다."); break;
+        }
     });
 
 }
